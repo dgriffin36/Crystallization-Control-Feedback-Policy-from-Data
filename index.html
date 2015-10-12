@@ -1,0 +1,101 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Crystallization-control-feedback-policy-from-data by dgriffin36</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Crystallization-control-feedback-policy-from-data</h1>
+        <p></p>
+
+        <p class="view"><a href="https://github.com/dgriffin36/Crystallization-Control-Feedback-Policy-from-Data">View the Project on GitHub <small>dgriffin36/Crystallization-Control-Feedback-Policy-from-Data</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/dgriffin36/Crystallization-Control-Feedback-Policy-from-Data/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/dgriffin36/Crystallization-Control-Feedback-Policy-from-Data/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/dgriffin36/Crystallization-Control-Feedback-Policy-from-Data">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a id="crystallization-control-feedback-policy-from-data" class="anchor" href="#crystallization-control-feedback-policy-from-data" aria-hidden="true"><span class="octicon octicon-link"></span></a>Crystallization Control: Feedback Policy from Data</h1>
+
+<p>This code has been posted in association with the manuscript titled "Data-Driven Modeling and Dynamic Programming Applied to Batch Cooling Crystallization" by D. J. Griffin, M. A. Grover, Y. Kawajiri, and R. W. Rousseau. The main function, ObtainPolicy.m, is a MATLAB function that takes as input experimental data on crystallization dynamics and outputs a feedback control policy for reaching a target crystall mass and chord count. To run this function, the m-files in the subfunctions folder must be in the same path. The output policy can be viewed as a time-varying colormap using viewPolicy.m; the output policy can be interpreted using inputFromPolicy.m. </p>
+
+<p>Example data has been provided in ExampleData.mat. Once the required functions have been added to the appropriate directory in MATLAB, the policy given for Test Run 2 can be obtained by opening the data file (so that each input variable is specified in the Workspace) and then entering the Command &gt;&gt; [Pol]=ObtainPolicy(Xtr,Utr,dXtr,dt,Dt,xTarget,N,rho,gamma,Grid).</p>
+
+<h2>
+<a id="obtainpolicy" class="anchor" href="#obtainpolicy" aria-hidden="true"><span class="octicon octicon-link"></span></a>ObtainPolicy</h2>
+
+<p>The process has two important steps: 1. data-driven modeling, and 2. dynamic programming. In the first step a convex optimization problem is posed. This problem is solved with CVX: Software for Disciplined Convex Programming [1],[2]. For this function to run, CVX must be installed and in the appropriate path. For commercial use with non-free solvers, such as MATLAB, please obtain the appropriate license: (<a href="http://cvxr.com/cvx/licensing/">http://cvxr.com/cvx/licensing/</a>).</p>
+
+<h3>
+<a id="inputs" class="anchor" href="#inputs" aria-hidden="true"><span class="octicon octicon-link"></span></a>Inputs</h3>
+
+<p>There are a number of inputs. The inputs specify: the training data, the length of the time steps, the target position in mass-count space, the batch run time, adjustable parameters in the optimization formulation, and the space-input discretization to use.</p>
+
+<p>REQUIRED</p>
+
+<p>Xtr     - Contains training data 'positions'.</p>
+
+<p>Utr     - Contains training data inputs.</p>
+
+<p>dXtr    - Contains training data 'movements'. </p>
+
+<p>dt      - The time interval between measuremetns [min.].</p>
+
+<p>Dt      - The time interval over which the input is held constant [min.].</p>
+
+<p>xTarget - The target position [count, mass].</p>
+
+<p>N       - The number of time intervals in the control run.</p>
+
+<p>OPTIONAL</p>
+
+<p>rho     - Parameter that weights the input-effort cost (default: 25).</p>
+
+<p>gamma     - Parameter that weights the running distance-to-target (default: 5).</p>
+
+<p>Grid    - Structure containing the grid spacing for: count (Grid.c), mass (Grid.m), and supersaturation (Grid.s).</p>
+
+<h3>
+<a id="note" class="anchor" href="#note" aria-hidden="true"><span class="octicon octicon-link"></span></a>Note</h3>
+
+<p>Depending on input data and discretization, the function will require substantial computation time (on the order of 30 minutes for the example data). The modeling step takes the longest. Prompts and visuals have been added as progress checks. These should be commented-out to run the function unattended.</p>
+
+<h3>
+<a id="bibliography" class="anchor" href="#bibliography" aria-hidden="true"><span class="octicon octicon-link"></span></a>Bibliography</h3>
+
+<p>[1] Michael Grant and Stephen Boyd. CVX: Matlab software for disciplined convex programming, version 2.0 beta. <a href="http://cvxr.com/cvx">http://cvxr.com/cvx</a>, September 2013.</p>
+
+<p>[2] Michael Grant and Stephen Boyd. Graph implementations for nonsmooth convex programs, Recent Advances in Learning and Control (a tribute to M. Vidyasagar), V. Blondel, S. Boyd, and H. Kimura, editors, pages 95-110, Lecture Notes in Control and Information Sciences, Springer, 2008. <a href="http://stanford.edu/%7Eboyd/graph_dcp.html">http://stanford.edu/~boyd/graph_dcp.html</a>.</p>
+
+<h3>
+<a id="copyright" class="anchor" href="#copyright" aria-hidden="true"><span class="octicon octicon-link"></span></a>Copyright</h3>
+
+<p>Copyright 2015, Daniel Griffin.</p>
+
+<p>This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</p>
+
+<p>This program is distributed in the hope that it will be useful, but without any warranty; without even the implied warranty of merchantability or fitness for a particular purpose. See the GNU General Public License for more details: <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/dgriffin36">dgriffin36</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
