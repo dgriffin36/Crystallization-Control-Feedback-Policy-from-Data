@@ -34,14 +34,22 @@
         <h1>
 <a id="overview" class="anchor" href="#overview" aria-hidden="true"><span class="octicon octicon-link"></span></a>Overview</h1>
 
-<p>This code has been posted in association with the manuscript titled "Data-Driven Modeling and Dynamic Programming Applied to Batch Cooling Crystallization" by D. J. Griffin, M. A. Grover, Y. Kawajiri, and R. W. Rousseau. The main function, ObtainPolicy.m, is a MATLAB function that takes as input experimental data on crystallization dynamics and outputs a feedback control policy for reaching a target crystall mass and chord count. To run this function, the m-files in the subfunctions folder must be in the same path. The output policy can be viewed as a time-varying colormap using viewPolicy.m; the output policy can be interpreted using inputFromPolicy.m. </p>
+<p>This code has been posted in association with the manuscript titled "Data-Driven Modeling and Dynamic Programming Applied to Batch Cooling Crystallization" by D. J. Griffin, M. A. Grover, Y. Kawajiri, and R. W. Rousseau. The main function is  ObtainPolicy.m. This is a MATLAB function that takes as input experimental data on crystallization dynamics and outputs a feedback control policy for reaching a target crystall mass and chord count. For more details, please consult the associated manuscript.</p>
+
+<h3>
+<a id="running-obtainpolicy" class="anchor" href="#running-obtainpolicy" aria-hidden="true"><span class="octicon octicon-link"></span></a>Running ObtainPolicy</h3>
+
+<p>To run this function, the m-files in the subfunctions folder must be in the same path. In addition, CVX (Software for Disciplined Convex Programming [1],[2]) is used. This must be instaleld and in the appropriate path: <a href="http://cvxr.com/cvx/download/">http://cvxr.com/cvx/download/</a>.  Note: for commercial use with non-free solvers, such as MATLAB, please obtain the appropriate license (<a href="http://cvxr.com/cvx/licensing/">http://cvxr.com/cvx/licensing/</a>).</p>
+
+<h3>
+<a id="viewing-and-using-the-output-policy" class="anchor" href="#viewing-and-using-the-output-policy" aria-hidden="true"><span class="octicon octicon-link"></span></a>Viewing and Using the Output Policy</h3>
+
+<p>The output policy can be viewed as a time-varying colormap using viewPolicy.m. The output policy can be interpreted using inputFromPolicy.m. </p>
+
+<h3>
+<a id="example-data" class="anchor" href="#example-data" aria-hidden="true"><span class="octicon octicon-link"></span></a>Example Data</h3>
 
 <p>Example data has been provided in ExampleData.mat. Once the required functions have been added to the appropriate directory in MATLAB, the policy given for Test Run 2 can be obtained by opening the data file (so that each input variable is specified in the Workspace) and then entering the Command &gt;&gt; [Pol]=ObtainPolicy(Xtr,Utr,dXtr,dt,Dt,xTarget,N,rho,gamma,Grid).</p>
-
-<h2>
-<a id="obtainpolicy" class="anchor" href="#obtainpolicy" aria-hidden="true"><span class="octicon octicon-link"></span></a>ObtainPolicy</h2>
-
-<p>The process has two important steps: 1. data-driven modeling, and 2. dynamic programming. In the first step a convex optimization problem is posed. This problem is solved with CVX: Software for Disciplined Convex Programming [1],[2]. For this function to run, CVX must be installed and in the appropriate path: <a href="http://cvxr.com/cvx/download/">http://cvxr.com/cvx/download/</a>. Note: for commercial use with non-free solvers, such as MATLAB, please obtain the appropriate license (<a href="http://cvxr.com/cvx/licensing/">http://cvxr.com/cvx/licensing/</a>).</p>
 
 <h3>
 <a id="inputs" class="anchor" href="#inputs" aria-hidden="true"><span class="octicon octicon-link"></span></a>Inputs</h3>
