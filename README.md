@@ -5,7 +5,7 @@ This code has been posted in association with the manuscript titled "Data-Driven
 Example data has been provided in ExampleData.mat. Once the required functions have been added to the appropriate directory in MATLAB, the policy given for Test Run 2 can be obtained by opening the data file (so that each input variable is specified in the Workspace) and then entering the Command >> [Pol]=ObtainPolicy(Xtr,Utr,dXtr,dt,Dt,xTarget,N,rho,gamma,Grid).
 
 ## ObtainPolicy
-The process has two important steps: 1. data-driven modeling, and 2. dynamic programming. In the first step a convex optimization problem is posed. This problem is solved with CVX: Software for Disciplined Convex Programming [1],[2]. For this function to run, CVX must be installed and in the appropriate path. For commercial use with non-free solvers, such as MATLAB, please obtain the appropriate license: (http://cvxr.com/cvx/licensing/).
+The process has two important steps: 1. data-driven modeling, and 2. dynamic programming. In the first step a convex optimization problem is posed. This problem is solved with CVX: Software for Disciplined Convex Programming [1],[2]. For this function to run, CVX must be installed and in the appropriate path: http://cvxr.com/cvx/download/. Note: for commercial use with non-free solvers, such as MATLAB, please obtain the appropriate license (http://cvxr.com/cvx/licensing/).
 
 ###Inputs
 There are a number of inputs. The inputs specify: the training data, the length of the time steps, the target position in mass-count space, the batch run time, adjustable parameters in the optimization formulation, and the space-input discretization to use.
