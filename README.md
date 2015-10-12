@@ -7,7 +7,7 @@ Example data has been provided in ExampleData.mat. Once the required functions h
 ## ObtainPolicy
 The process has two important steps: 1. data-driven modeling, and 2. dynamic programming. In the first step a convex optimization problem is posed. This problem is solved with CVX: Software for Disciplined Convex Programming [1],[2]. For this function to run, CVX must be installed and in the appropriate path. For commercial use with non-free solvers, such as MATLAB, please obtain the appropriate license: (http://cvxr.com/cvx/licensing/).
 
-###--------------------------------------Inputs----------------------------------------
+###Inputs
 There are a number of inputs. The inputs specify: the training data, the length of the time steps, the target position in mass-count space, the batch run time, adjustable parameters in the optimization formulation, and the space-input discretization to use.
    
 REQUIRED
@@ -34,15 +34,15 @@ OPTIONAL
   
   Grid    - Structure containing the grid spacing for: count (Grid.c), mass (Grid.m), and supersaturation (Grid.s).
  
-###--------------------------------------Note------------------------------------------
+###Note
 Depending on input data and discretization, the function will require substantial computation time (on the order of 30 minutes for the example data). The modeling step takes the longest. Prompts and visuals have been added as progress checks. These should be commented-out to run the function unattended.
 
-###----------------------------------Bibliography-------------------------------------
+###Bibliography
 [1] Michael Grant and Stephen Boyd. CVX: Matlab software for disciplined convex programming, version 2.0 beta. http://cvxr.com/cvx, September 2013.
 
 [2] Michael Grant and Stephen Boyd. Graph implementations for nonsmooth convex programs, Recent Advances in Learning and Control (a tribute to M. Vidyasagar), V. Blondel, S. Boyd, and H. Kimura, editors, pages 95-110, Lecture Notes in Control and Information Sciences, Springer, 2008. http://stanford.edu/~boyd/graph_dcp.html.
 
-###-----------------------------------Copyright---------------------------------------
+###Copyright
 Copyright 2015, Daniel Griffin.
 
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
