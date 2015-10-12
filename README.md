@@ -1,4 +1,4 @@
-# Crystallization Control: Feedback Policy from Data
+# Overview
 
 This code has been posted in association with the manuscript titled "Data-Driven Modeling and Dynamic Programming Applied to Batch Cooling Crystallization" by D. J. Griffin, M. A. Grover, Y. Kawajiri, and R. W. Rousseau. The main function, ObtainPolicy.m, is a MATLAB function that takes as input experimental data on crystallization dynamics and outputs a feedback control policy for reaching a target crystall mass and chord count. To run this function, the m-files in the subfunctions folder must be in the same path. The output policy can be viewed as a time-varying colormap using viewPolicy.m; the output policy can be interpreted using inputFromPolicy.m. 
 
