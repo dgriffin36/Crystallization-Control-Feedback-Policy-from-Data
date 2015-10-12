@@ -211,7 +211,19 @@ if length(Xtr(:,1))<1000
     end  
 % -------------------------end prompt-------------------------------------
 end
+q=0;
 for i=1:nm
+    if i/nm>=.25 && q<.5
+        disp('model 25% complete')
+        q=1;
+    elseif i/nm>=.5 && q<1.5
+        disp('model 50% complete')
+        q=2;
+    elseif i/nm>=.75 && q<2.5
+        disp('model 75% complete')
+        q=3;
+    end
+        
     for j=1:nc
         s=(j-1)*nm+i;
         if length(Xtr(:,1))>1000
