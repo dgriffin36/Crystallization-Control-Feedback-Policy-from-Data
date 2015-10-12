@@ -1,33 +1,36 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
+
   <head>
-    <meta charset="utf-8">
+    <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Crystallization-control-feedback-policy-from-data by dgriffin36</title>
+    <meta name="description" content="Crystallization-control-feedback-policy-from-data : ">
 
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/github-light.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Crystallization-control-feedback-policy-from-data</title>
   </head>
+
   <body>
-    <div class="wrapper">
-      <header>
-        <h1>Crystallization-control-feedback-policy-from-data</h1>
-        <p></p>
 
-        <p class="view"><a href="https://github.com/dgriffin36/Crystallization-Control-Feedback-Policy-from-Data">View the Project on GitHub <small>dgriffin36/Crystallization-Control-Feedback-Policy-from-Data</small></a></p>
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/dgriffin36/Crystallization-Control-Feedback-Policy-from-Data">View on GitHub</a>
 
+          <h1 id="project_title">Crystallization-control-feedback-policy-from-data</h1>
+          <h2 id="project_tagline"></h2>
 
-        <ul>
-          <li><a href="https://github.com/dgriffin36/Crystallization-Control-Feedback-Policy-from-Data/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/dgriffin36/Crystallization-Control-Feedback-Policy-from-Data/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/dgriffin36/Crystallization-Control-Feedback-Policy-from-Data">View On <strong>GitHub</strong></a></li>
-        </ul>
-      </header>
-      <section>
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/dgriffin36/Crystallization-Control-Feedback-Policy-from-Data/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/dgriffin36/Crystallization-Control-Feedback-Policy-from-Data/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
         <h1>
 <a id="crystallization-control-feedback-policy-from-data" class="anchor" href="#crystallization-control-feedback-policy-from-data" aria-hidden="true"><span class="octicon octicon-link"></span></a>Crystallization Control: Feedback Policy from Data</h1>
 
@@ -38,7 +41,7 @@
 <h2>
 <a id="obtainpolicy" class="anchor" href="#obtainpolicy" aria-hidden="true"><span class="octicon octicon-link"></span></a>ObtainPolicy</h2>
 
-<p>The process has two important steps: 1. data-driven modeling, and 2. dynamic programming. In the first step a convex optimization problem is posed. This problem is solved with CVX: Software for Disciplined Convex Programming [1],[2]. For this function to run, CVX must be installed and in the appropriate path. For commercial use with non-free solvers, such as MATLAB, please obtain the appropriate license: (<a href="http://cvxr.com/cvx/licensing/">http://cvxr.com/cvx/licensing/</a>).</p>
+<p>The process has two important steps: 1. data-driven modeling, and 2. dynamic programming. In the first step a convex optimization problem is posed. This problem is solved with CVX: Software for Disciplined Convex Programming [1],[2]. For this function to run, CVX must be installed and in the appropriate path: <a href="http://cvxr.com/cvx/download/">http://cvxr.com/cvx/download/</a>. Note: for commercial use with non-free solvers, such as MATLAB, please obtain the appropriate license (<a href="http://cvxr.com/cvx/licensing/">http://cvxr.com/cvx/licensing/</a>).</p>
 
 <h3>
 <a id="inputs" class="anchor" href="#inputs" aria-hidden="true"><span class="octicon octicon-link"></span></a>Inputs</h3>
@@ -70,9 +73,9 @@
 <p>Grid    - Structure containing the grid spacing for: count (Grid.c), mass (Grid.m), and supersaturation (Grid.s).</p>
 
 <h3>
-<a id="note" class="anchor" href="#note" aria-hidden="true"><span class="octicon octicon-link"></span></a>Note</h3>
+<a id="note-on-computation-time" class="anchor" href="#note-on-computation-time" aria-hidden="true"><span class="octicon octicon-link"></span></a>Note on Computation Time</h3>
 
-<p>Depending on input data and discretization, the function will require substantial computation time (on the order of 30 minutes for the example data). The modeling step takes the longest. Prompts and visuals have been added as progress checks. These should be commented-out to run the function unattended.</p>
+<p>Depending on input data and discretization, the function may require substantial computation time (on the order of 30 minutes for the example data with the given Grid). The modeling step takes the longest. Prompts and visuals have been added as progress checks. These should be commented-out to run the function unattended.</p>
 
 <h3>
 <a id="bibliography" class="anchor" href="#bibliography" aria-hidden="true"><span class="octicon octicon-link"></span></a>Bibliography</h3>
@@ -90,12 +93,17 @@
 
 <p>This program is distributed in the hope that it will be useful, but without any warranty; without even the implied warranty of merchantability or fitness for a particular purpose. See the GNU General Public License for more details: <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.</p>
       </section>
-      <footer>
-        <p>This project is maintained by <a href="https://github.com/dgriffin36">dgriffin36</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Crystallization-control-feedback-policy-from-data maintained by <a href="https://github.com/dgriffin36">dgriffin36</a></p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
       </footer>
     </div>
-    <script src="javascripts/scale.fix.js"></script>
+
     
+
   </body>
 </html>
