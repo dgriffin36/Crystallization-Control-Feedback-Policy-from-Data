@@ -34,8 +34,8 @@ OPTIONAL
   
   Grid    - Structure containing the grid spacing for: count (Grid.c), mass (Grid.m), and supersaturation (Grid.s).
  
-###Note
-Depending on input data and discretization, the function will require substantial computation time (on the order of 30 minutes for the example data). The modeling step takes the longest. Prompts and visuals have been added as progress checks. These should be commented-out to run the function unattended.
+###Note on Computation Time
+Depending on input data and discretization, the function may require substantial computation time (on the order of 30 minutes for the example data with the given Grid). The modeling step takes the longest. Prompts and visuals have been added as progress checks. These should be commented-out to run the function unattended.
 
 ###Bibliography
 [1] Michael Grant and Stephen Boyd. CVX: Matlab software for disciplined convex programming, version 2.0 beta. http://cvxr.com/cvx, September 2013.
