@@ -16,9 +16,9 @@ REQUIRED
   
   dXtr    - Contains training data 'movements'. 
   
-  dt      - The measurement time interval in minutes.
+  dt      - The time interval between measuremetns [min.].
   
-  Dt      - The time interval over which the input is held constant.
+  Dt      - The time interval over which the input is held constant [min.].
   
   xTarget - The target position [count, mass].
   
