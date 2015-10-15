@@ -35,7 +35,7 @@ OPTIONAL
   
   gamma 	- Parameter that weights the running distance-to-target (default: 5).
   
-  Grid    - Structure containing the grid spacing for: count (Grid.c), mass (Grid.m), and supersaturation (Grid.s).
+  Grid    - Structure containing the grid spacing for: count (Grid.c), mass (Grid.m), supersaturation (Grid.s), and the count "normalizing scale" (Grid.scale).
  
 ###Note on Computation Time
 Depending on input data and discretization, the function may require substantial computation time (on the order of 30 minutes for the example data with the given Grid). The modeling step takes the longest. Prompts and visuals have been added as progress checks. These should be commented-out to run the function unattended.
