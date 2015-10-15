@@ -31,7 +31,8 @@ function [Policy,Grid]=ObtainPolicy(Xtr,Utr,dXtr,dt,Dt,xTarget,N,rho,gamma,Grid)
 %   rho     - Parameter that weights the input-effort cost (default: 25).
 %   gamma 	- Parameter that weights the running distance-to-target (5).
 %   Grid    - Structure containing the grid spacing for: count (Grid.c), 
-%             mass (Grid.m), and supersaturation (Grid.s).
+%             mass (Grid.m), supersaturation (Grid.s), and the count 
+%             "normalizing scale" (Grid.scale).
 % 
 %-------------------------------Note---------------------------------------
 % Depending on input data and discretization, the function will require
