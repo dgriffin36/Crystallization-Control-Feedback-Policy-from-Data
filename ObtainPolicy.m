@@ -1,24 +1,22 @@
-function [Pol,Grid]=ObtainPolicy(Xtr,Utr,dXtr,dt,Dt,xTarget,N,rho,gamma,Grid)             
-% ObtainPolicy
-% Gives a state-feedback control policy for controlling
+function [Policy,Grid]=ObtainPolicy(Xtr,Utr,dXtr,dt,Dt,xTarget,N,rho,gamma,Grid)             
+% ObtainPolicy gives a state-feedback control policy for controlling
 % batch cooling crystallization according to the method described in
 % "Data-Driven Modeling and Dynamic Programming Applied to Batch Cooling
 % Crystallization" by D. J. Griffin, M. A. Grover, Y. Kawajiri, and R. W.
 % Rousseau.
 %
-% The process has two important steps: 1. data-driven modeling, and 2.
-% dynamic programming. In the first step a convex optimization problem is 
-% posed. This problem is solved with CVX: Software for Disciplined Convex 
-% Programming [1],[2]. For this function to run, CVX must be installed and 
-% in the appropriate path. For commercial use with non-free solvers, such as 
-% MATLAB, please obtain the appropriate license: 
-% (http://cvxr.com/cvx/licensing/).
+% To run this function, the m-files in the subfunctions folder must be in 
+% the same path. In addition, CVX (Software for Disciplined Convex 
+% Programming [1],[2]) is required. This must be installed and in the 
+% appropriate path: http://cvxr.com/cvx/download/. Note: for commercial 
+% use with non-free solvers, such as MATLAB, please obtain the appropriate 
+% license (http://cvxr.com/cvx/licensing/).
 %
 %-----------------------------------Inputs---------------------------------
-%There are a number of inputs. The inputs specify: the training 
-%data, the length of the time steps, the target position in mass-count space,
-%the batch run time, adjustable parameters in the optimization formulation, 
-%and the space-input discretization to use.
+% There are a number of inputs. The inputs specify: the training 
+% data, the length of the time steps, the target position in mass-count 
+% space, the batch run time, adjustable parameters in the optimization 
+% formulation, and the space-input discretization to use.
 %   
 % REQUIRED
 %   Xtr     - Contains training data 'positions'.
@@ -36,11 +34,11 @@ function [Pol,Grid]=ObtainPolicy(Xtr,Utr,dXtr,dt,Dt,xTarget,N,rho,gamma,Grid)
 %             mass (Grid.m), and supersaturation (Grid.s).
 % 
 %-------------------------------Note---------------------------------------
-%Depending on input data and discretization, the function will require
-%substantial computation time (on the order of 30 minutes for the example 
-%data). The modeling step takes the longest. Prompts and visuals have been 
-%added as progress checks. These should be commented-out to run the 
-%function unattended.
+% Depending on input data and discretization, the function will require
+% substantial computation time (on the order of 30 minutes for the example 
+% data). The modeling step takes the longest. Prompts and visuals have been 
+% added as progress checks. These should be commented-out to run the 
+%f unction unattended.
 %
 %-----------------------------Bibliography---------------------------------
 %[1] Michael Grant and Stephen Boyd. CVX: Matlab software for disciplined 
@@ -53,18 +51,17 @@ function [Pol,Grid]=ObtainPolicy(Xtr,Utr,dXtr,dt,Dt,xTarget,N,rho,gamma,Grid)
 %http://stanford.edu/~boyd/graph_dcp.html.
 %
 %----------------------------Copyright-------------------------------------
-%    Copyright 2015, Daniel Griffin.
+% Copyright 2015, Daniel Griffin.
 %
-%    This program is free software: you can redistribute it and/or modify
-%    it under the terms of the GNU General Public License as published by
-%    the Free Software Foundation, either version 3 of the License, or
-%    (at your option) any later version.
+% This program is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
 %
-%    This program is distributed in the hope that it will be useful,
-%    but without any warranty; without even the implied warranty of
-%    merchantability or fitness for a particular purpose. See the
-%    GNU General Public License for more details 
-%    <http://www.gnu.org/licenses/>.
+% This program is distributed in the hope that it will be useful,
+% but without any warranty; without even the implied warranty of
+% merchantability or fitness for a particular purpose. See the GNU General 
+% Public License for more details <http://www.gnu.org/licenses/>.
 
 
 %% check on necessary inputs
@@ -125,11 +122,14 @@ if nargin < 10
     Grid.c=cGrid;
     Grid.m=mGrid;
     Grid.s=sGrid;
+    scale=cSpacing/mSpacing;
+    Grid.scale=scale;
 else
     % unpack grid scheme if specified
     cGrid=Grid.c;
     mGrid=Grid.m;
     sGrid=Grid.s;
+    scale=Grid.scale;
     nc=length(cGrid);
     nm=length(mGrid);
     ns=length(sGrid);
@@ -173,17 +173,17 @@ kappa=zeros(nc,nm);
 
 for i = 1:nm
     for j = 1:nc
-        kappa(j,i)=findKappa(cGrid(j),mGrid(i),[Xtr, Utr],0.25); 
+        kappa(j,i)=findKappa(cGrid(j),mGrid(i),scale,[Xtr, Utr],0.25); 
         % findKappa determines the bandwidth according to the data density
         % (used in the non-parametric learning algorithm)
     end
 end
 
 figure(2)
-meshc(cGrid,mGrid,kappa')
-xlabel('chord count')
-ylabel('crystal mass [g]')
-zlabel('bandwidth \kappa')
+meshc(cGrid,mGrid,kappa');
+xlabel('chord count','FontSize',14,'Interpreter','latex')
+ylabel('crystal mass [g]','FontSize',14,'Interpreter','latex')
+zlabel('bandwidth $\kappa$','FontSize',14,'Interpreter','latex')
 
 %% comment-out the following prompt to run the function unattended -------
 prompt = 'Bandwidth calculated. Proceed to model development? Y/N [Y]: ';
@@ -212,6 +212,7 @@ if length(Xtr(:,1))<1000
 % -------------------------end prompt-------------------------------------
 end
 q=0;
+Bc=[];Bm=[];
 for i=1:nm
     if i/nm>=.25 && q<.5
         disp('model 25% complete')
@@ -227,10 +228,10 @@ for i=1:nm
     for j=1:nc
         s=(j-1)*nm+i;
         if length(Xtr(:,1))>1000
-            [Bc(:,s),Bm(:,s)]=LocalModelCoefficients(Xtr,Utr,dXtr,cGrid(j),mGrid(i),kappa(j,i));
+            [Bc(:,s),Bm(:,s)]=LocalModelCoefficients(Xtr,Utr,dXtr,cGrid(j),mGrid(i),kappa(j,i),scale);
             %this function utilizes CVX and is a constrained optimization
         else
-            [Bc(:,s),Bm(:,s)]=LocalModelCoefficientsUnconstrained(Xtr,Utr,dXtr,cGrid(j),mGrid(i),kappa(j,i));
+            [Bc(:,s),Bm(:,s)]=LocalModelCoefficientsUnconstrained(Xtr,Utr,dXtr,cGrid(j),mGrid(i),kappa(j,i),scale);
             %this function is an unconstrained optimization and may lead to
             %an inaccurate model
         end
@@ -239,21 +240,27 @@ end
 
 %% -------------- graph for visual check -----------------------------------
 % quiver plots of the model
+Dc=zeros(nc,nm,ns);
+Dm=zeros(nc,nm,ns);
 for i = 1:nm
     for j = 1:nc
         for h=1:ns
-            
-            sup=[sGrid(h),sGrid(h)^2,sGrid(h)^3,sGrid(h)^4,sGrid(h)^5,sGrid(h)^6];
-            
-            Dc(j,i,h)=sup*Bc(:,(j-1)*nm+i);
-            Dm(j,i,h)=sup*Bm(:,(j-1)*nm+i);
+            if length(Xtr(:,1))>1000
+                sup=[sGrid(h),sGrid(h)^2,sGrid(h)^3,sGrid(h)^4,sGrid(h)^5,sGrid(h)^6];
+                Dc(j,i,h)=sup*Bc(:,(j-1)*nm+i);
+                Dm(j,i,h)=sup*Bm(:,(j-1)*nm+i);
+            else
+                sup=[sGrid(h),sGrid(h)^2,sGrid(h)^3];
+                Dc(j,i,h)=sup*Bc(:,(j-1)*nm+i);
+                Dm(j,i,h)=sup*Bm(:,(j-1)*nm+i);
+            end
+                
         end
     end
 end
 
 [x,y]=meshgrid(cGrid,mGrid);
 %
-
 figure1 = figure;
 
 % Create subplot
@@ -398,31 +405,36 @@ if str == 'N'
     return
 end
 %--------------------------end prompt--------------------------------------
-%% obtain a policy for the target position and batch time
+%% convert to cell-to-cell mapping
 
-%first need to obtain the next-state matrix
+% obtain the 'next-state' matrix
 NS=zeros(nm*nc,ns);
 delta_t=Dt/dt;
+if length(Xtr(:,1))>1000
+    model=1;
+else
+    model=2;
+end
 
 for i=1:nm
     for j=1:nc
         for k=1:ns;
-            NS((j-1)*nm+i,k)=IndexNextState([cGrid(j);mGrid(i)],sGrid(k),(j-1)*nm+i,delta_t,Bc,Bm,cGrid,mGrid);
+            NS((j-1)*nm+i,k)=IndexNextState([cGrid(j);mGrid(i)],sGrid(k),(j-1)*nm+i,delta_t,Bc,Bm,cGrid,mGrid,model);
             % this function calculates a matrix that specifies the next state
             % according to the dynamic model obtained previously under each
             % different input.
         end
     end
 end
-
+%% Dynamic Programming to obtain policy
 % once the next-state matrix is obtained, use dynamic programming to find
 % the policy
-Pol=DynamicProgramming(N,xTarget,gamma,rho,NS,cGrid,mGrid,sGrid); 
+Policy=DynamicProgramming(N,xTarget,gamma,rho,NS,cGrid,mGrid,sGrid,scale); 
 
 %% -------------- graph for visual check -----------------------------------
 % view policy as time-variant color map
 sTar=xTarget;
-Asup=Pol;
+Asup=Policy;
 t=N-1;
 acur=reshape(Asup(:,t),nm,nc);
     fig = figure('Colormap',...

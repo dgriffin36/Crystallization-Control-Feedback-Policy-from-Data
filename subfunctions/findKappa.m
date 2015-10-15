@@ -1,10 +1,9 @@
-function kappa=findKappa(c,m,Xtrain,fr)
+function kappa=findKappa(c,m,scale,Xtrain,fr)
 % findKappa Identifies the appropriate bandwidth for local regression.
 %           This is a subfunction called by ObtainPolicy. The output is
 %           prerequisite to obtaining the dynamic model.           
 
 N=length(Xtrain(:,1));
-scale=25;
 kappa=500;
 U=50000;
 L=0;

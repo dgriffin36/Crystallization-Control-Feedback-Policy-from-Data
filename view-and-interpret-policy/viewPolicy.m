@@ -60,7 +60,7 @@ hold(axes1,'on');
     'LineStyle','none',...
     'Color',[0 0 0]);
     title(['time = ' num2str(t*Dt) ' min.'])
-    pause(.2)
+    pause(.5)
 end
 
 end
