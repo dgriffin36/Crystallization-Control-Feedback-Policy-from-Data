@@ -199,7 +199,7 @@ end
 %-------------------------end prompt--------------------------------------%
 %% obtain dynamic model
 
-if length(Xtr(:,1))<1000
+if length(Xtr(:,1))<200
 %% --comment-out the following prompt to run the function unattended -----
     prompt = 'Small Training Set. Proceed with model development? Y/N [Y]: ';
     str = input(prompt,'s');
@@ -228,14 +228,8 @@ for i=1:nm
         
     for j=1:nc
         s=(j-1)*nm+i;
-        if length(Xtr(:,1))>1000
             [Bc(:,s),Bm(:,s)]=LocalModelCoefficients(Xtr,Utr,dXtr,cGrid(j),mGrid(i),kappa(j,i),scale);
             %this function utilizes CVX and is a constrained optimization
-        else
-            [Bc(:,s),Bm(:,s)]=LocalModelCoefficientsUnconstrained(Xtr,Utr,dXtr,cGrid(j),mGrid(i),kappa(j,i),scale);
-            %this function is an unconstrained optimization and may lead to
-            %an inaccurate model
-        end
     end
 end
 
@@ -246,16 +240,9 @@ Dm=zeros(nc,nm,ns);
 for i = 1:nm
     for j = 1:nc
         for h=1:ns
-            if length(Xtr(:,1))>1000
-                sup=[sGrid(h),sGrid(h)^2,sGrid(h)^3,sGrid(h)^4,sGrid(h)^5,sGrid(h)^6];
-                Dc(j,i,h)=sup*Bc(:,(j-1)*nm+i);
-                Dm(j,i,h)=sup*Bm(:,(j-1)*nm+i);
-            else
-                sup=[sGrid(h),sGrid(h)^2,sGrid(h)^3];
-                Dc(j,i,h)=sup*Bc(:,(j-1)*nm+i);
-                Dm(j,i,h)=sup*Bm(:,(j-1)*nm+i);
-            end
-                
+            sup=[sGrid(h),sGrid(h)^2,sGrid(h)^3,sGrid(h)^4,sGrid(h)^5,sGrid(h)^6];
+            Dc(j,i,h)=sup*Bc(:,(j-1)*nm+i);
+            Dm(j,i,h)=sup*Bm(:,(j-1)*nm+i);
         end
     end
 end
@@ -411,11 +398,7 @@ end
 % obtain the 'next-state' matrix
 NS=zeros(nm*nc,ns);
 delta_t=Dt/dt;
-if length(Xtr(:,1))>1000
-    model=1;
-else
-    model=2;
-end
+model=1;
 
 for i=1:nm
     for j=1:nc
