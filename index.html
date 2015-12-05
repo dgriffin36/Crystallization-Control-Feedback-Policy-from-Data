@@ -34,7 +34,7 @@
         <h1>
 <a id="overview" class="anchor" href="#overview" aria-hidden="true"><span class="octicon octicon-link"></span></a>Overview</h1>
 
-<p>This code has been posted in association with the manuscript titled "Data-Driven Modeling and Dynamic Programming Applied to Batch Cooling Crystallization" by D. J. Griffin, M. A. Grover, Y. Kawajiri, and R. W. Rousseau. The main function is  ObtainPolicy.m. This is a MATLAB function that takes as input experimental data on crystallization dynamics and outputs a feedback control policy for reaching a target crystall mass and chord count. For more details, please consult the associated manuscript.</p>
+<p>This code has been posted in association with the manuscript titled "Data-Driven Modeling and Dynamic Programming Applied to Batch Cooling Crystallization" by D. J. Griffin, M. A. Grover, Y. Kawajiri, and R. W. Rousseau. The main function is  ObtainPolicy.m. This is a MATLAB function that takes experimental data on crystallization dynamics and outputs a feedback control policy for reaching a target crystal mass and chord count. For more details, please consult the associated manuscript.</p>
 
 <h3>
 <a id="running-obtainpolicy" class="anchor" href="#running-obtainpolicy" aria-hidden="true"><span class="octicon octicon-link"></span></a>Running ObtainPolicy</h3>
@@ -52,9 +52,9 @@
 <p>Example data has been provided in ExampleData.mat. Once the required functions have been added to the appropriate directory in MATLAB, the policy given for Test Run 2 can be obtained by opening the data file (so that each input variable is specified in the Workspace) and then entering the Command &gt;&gt; [Pol]=ObtainPolicy(Xtr,Utr,dXtr,dt,Dt,xTarget,N,rho,gamma,Grid).</p>
 
 <h3>
-<a id="inputs" class="anchor" href="#inputs" aria-hidden="true"><span class="octicon octicon-link"></span></a>Inputs</h3>
+<a id="inputs-to-obtainpolicy" class="anchor" href="#inputs-to-obtainpolicy" aria-hidden="true"><span class="octicon octicon-link"></span></a>Inputs to ObtainPolicy</h3>
 
-<p>There are a number of inputs. The inputs specify: the training data, the length of the time steps, the target position in mass-count space, the batch run time, adjustable parameters in the optimization formulation, and the space-input discretization to use.</p>
+<p>There are a number of inputs to ObtainPolicy. The inputs specify: the training data, the length of the time steps, the target position in mass-count space, the batch run time, adjustable parameters in the optimization formulation, and the space-input discretization to use.</p>
 
 <p>REQUIRED</p>
 
@@ -64,7 +64,7 @@
 
 <p>dXtr    - Contains training data 'movements'. </p>
 
-<p>dt      - The time interval between measuremetns [min.].</p>
+<p>dt      - The time interval between measurements [min.].</p>
 
 <p>Dt      - The time interval over which the input is held constant [min.].</p>
 
@@ -111,7 +111,17 @@
       </footer>
     </div>
 
-    
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-71036289-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
 
   </body>
 </html>
