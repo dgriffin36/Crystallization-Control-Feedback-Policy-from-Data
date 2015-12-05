@@ -10,7 +10,7 @@ The output policy can be viewed as a time-varying colormap using viewPolicy.m. T
 ### Example Data
 Example data has been provided in ExampleData.mat. Once the required functions have been added to the appropriate directory in MATLAB, the policy given for Test Run 2 can be obtained by opening the data file (so that each input variable is specified in the Workspace) and then entering the Command >> [Pol]=ObtainPolicy(Xtr,Utr,dXtr,dt,Dt,xTarget,N,rho,gamma,Grid).
 
-###Inputs
+###Inputs to ObtainPolicy
 There are a number of inputs. The inputs specify: the training data, the length of the time steps, the target position in mass-count space, the batch run time, adjustable parameters in the optimization formulation, and the space-input discretization to use.
    
 REQUIRED
