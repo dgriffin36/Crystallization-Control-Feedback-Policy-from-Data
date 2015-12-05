@@ -1,5 +1,5 @@
-function [sup_sp]=inputFromPolicy(count,mass,t,Dt,Pol,Grid)
-% inputFromPolicy
+function [sup_sp]=setpointFromPolicy(count,mass,t,Dt,Pol,Grid)
+% setpointFromPolicy
 % This function gives the supersaturation setpoint for the current
 % state according to the policy.
 %
